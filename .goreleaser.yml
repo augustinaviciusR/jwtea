@@ -43,5 +43,4 @@ release:
   github:
     owner: augustinaviciusR
     name: jwtea
-  replace_existing_artifacts: true
-  replace_existing_draft: true
+  mode: replace
