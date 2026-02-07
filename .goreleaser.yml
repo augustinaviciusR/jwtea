@@ -31,6 +31,7 @@ brews:
   - repository:
       owner: augustinaviciusR
       name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
     homepage: "https://github.com/augustinaviciusR/jwtea"
     description: "OAuth2/OIDC server with interactive TUI dashboard"
     license: "MIT"
