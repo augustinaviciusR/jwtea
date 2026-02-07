@@ -1,0 +1,100 @@
+# JWTea Configuration Example
+# Copy this file to config.yaml and customize as needed
+
+# HTTP Server Configuration
+server:
+  port: 8080
+  host: localhost
+
+# OAuth2/OIDC Configuration
+oauth:
+  issuer: http://localhost:8080
+  auth_code_expiry: 10m
+  default_scopes:
+    - openid
+  supported_scopes:
+    - openid
+    - profile
+    - email
+    - address
+    - phone
+  allowed_grant_types:
+    - authorization_code
+    - refresh_token
+
+# JWT Token Configuration
+tokens:
+  access_token_expiry: 5m
+  id_token_expiry: 5m
+  refresh_token_expiry: 24h
+  algorithm: RS256
+  custom_claims:
+    # Additional claims to add to all tokens
+    # iss: custom-issuer
+    # environment: development
+
+# Test Users
+# These users are pre-populated for development/testing
+users:
+  - email: alice@test.com
+    role: user
+    dept: engineering
+  - email: bob@test.com
+    role: user
+    dept: sales
+  - email: admin@test.com
+    role: admin
+    dept: ""
+
+# Built-in Callback Endpoint (runs on same port as OAuth server)
+# Provides a beautiful UI for receiving OAuth callbacks and exchanging tokens
+callback_server:
+  enabled: true              # Set to false to disable
+  path: /callback            # Callback path (on server.port)
+  client_id: demo-client     # Default client ID for token exchange UI
+
+# External Callback URLs (registered but not launched by JWTea)
+# Add your application's callback URLs or external testing tools here
+external_callbacks:
+  - https://oauth.pstmn.io/v1/callback    # Postman OAuth callback
+  # - http://localhost:3000/callback      # Your app's callback
+  # - https://myapp.example.com/callback  # Production callback
+
+# OAuth Clients
+# redirect_uris are auto-populated with callback_server path + external_callbacks
+clients:
+  - id: demo-client
+    secret: demo-secret
+    redirect_uris:
+      - http://localhost:8080/callback      # Built-in callback endpoint (auto-added)
+      - https://oauth.pstmn.io/v1/callback  # External callback (auto-added)
+  - id: dev-client
+    secret: dev-secret
+    redirect_uris:
+      - http://localhost:8080/callback
+      - http://localhost:3000/callback
+
+# Token Introspection (RFC 7662)
+introspection:
+  enabled: true                # Enable /oauth2/introspect endpoint
+  require_client_auth: true    # Require client authentication for introspection
+  # allowed_clients: []        # If set, only these clients can introspect tokens
+
+# Token Revocation (RFC 7009)
+revocation:
+  enabled: true                # Enable /oauth2/revoke endpoint
+  require_client_auth: true    # Require client authentication for revocation
+
+# Dashboard/TUI Configuration
+dashboard:
+  tick_interval: 1s          # How often to refresh UI (lower = more responsive but more CPU)
+  log_buffer_size: 500       # Number of log entries to keep in memory
+  default_tab: generate      # Tab to show on startup: generate, users, clients, logs, settings
+  show_help: false           # Show help overlay on startup
+  color_scheme: default      # Color scheme: default, monochrome, high-contrast
+
+# Logging Configuration
+logging:
+  level: info                # Log level: debug, info, warn, error
+  format: json               # Log format: json, text
+  buffer_size: 500           # Log buffer size for dashboard

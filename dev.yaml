@@ -1,0 +1,55 @@
+server:
+    port: 8080
+    host: localhost
+oauth:
+    issuer: http://localhost:8080
+    auth_code_expiry: 10m0s
+    default_scopes:
+        - openid
+    supported_scopes:
+        - openid
+        - profile
+        - email
+    allowed_grant_types: []
+tokens:
+    access_token_expiry: 15m0s
+    id_token_expiry: 15m0s
+    refresh_token_expiry: 48h0m0s
+    algorithm: RS256
+    custom_claims: {}
+users:
+    - email: a@a.a
+      role: role
+      dept: .
+    - email: admin@test.com
+      role: admin
+      dept: ""
+    - email: alice@test.com
+      role: user
+      dept: engineering
+    - email: bob@test.com
+      role: user
+      dept: sales
+clients:
+    - id: dev-client-saved
+      secret: dev-secret
+      redirect_uris:
+        - http://localhost:8080/callback
+        - http://127.0.0.1:8080/callback
+callback_server:
+    enabled: true
+    path: /callback
+    client_id: dev-client
+external_callbacks:
+    - https://oauth.pstmn.io/v1/callback
+    - http://localhost:3000/callback
+dashboard:
+    tick_interval: 1s
+    log_buffer_size: 500
+    default_tab: generate
+    show_help: false
+    color_scheme: default
+logging:
+    level: debug
+    format: json
+    buffer_size: 500
