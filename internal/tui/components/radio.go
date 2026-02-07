@@ -86,7 +86,7 @@ func (r *Radio) View() string {
 		line := fmt.Sprintf("  %s %s", indicator, opt.Label)
 
 		if r.Focused && i == r.Selected {
-			b.WriteString(r.styleFocused.Copy().Bold(true).Render(line))
+			b.WriteString(r.styleFocused.Bold(true).Render(line))
 		} else if i == r.Selected {
 			b.WriteString(r.styleSelected.Render(line))
 		} else {

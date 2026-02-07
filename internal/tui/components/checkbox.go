@@ -86,7 +86,7 @@ func (c *Checkbox) View() string {
 		line := fmt.Sprintf("  %s %s", indicator, opt.Label)
 
 		if c.Focused && i == c.Cursor {
-			b.WriteString(c.styleFocused.Copy().Bold(true).Render(line))
+			b.WriteString(c.styleFocused.Bold(true).Render(line))
 		} else if opt.Checked {
 			b.WriteString(c.styleChecked.Render(line))
 		} else {
