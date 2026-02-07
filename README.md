@@ -254,9 +254,6 @@ Flags:
 ## Development
 
 ```bash
-# Run with hot reload (requires air)
-air
-
 # Run tests
 make test
 
