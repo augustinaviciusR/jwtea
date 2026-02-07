@@ -15,7 +15,6 @@ import (
 
 const (
 	defaultTickInterval = 1000 * time.Millisecond
-	appVersion          = "v0.1.0"
 	appName             = "JWTea"
 
 	tabGenerate = 0
@@ -257,7 +256,7 @@ func (m dashModel) renderPulse() string {
 }
 
 func (m dashModel) renderAppInfo() string {
-	return m.theme.Header.Render(fmt.Sprintf("%s %s  ", appName, appVersion))
+	return m.theme.Header.Render(fmt.Sprintf("%s v%s  ", appName, Version))
 }
 
 func (m dashModel) renderServerStatus() string {

@@ -1,0 +1,45 @@
+version: 2
+project_name: jwtea
+
+builds:
+  - main: ./main.go
+    binary: jwtea
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X jwtea/cmd.Version={{.Version}}
+
+archives:
+  - format: tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+    format_overrides:
+      - goos: windows
+        format: zip
+
+checksum:
+  name_template: 'checksums.txt'
+
+brews:
+  - repository:
+      owner: augustinaviciusR
+      name: homebrew-tap
+    homepage: "https://github.com/augustinaviciusR/jwtea"
+    description: "OAuth2/OIDC server with interactive TUI dashboard"
+    license: "MIT"
+    install: |
+      bin.install "jwtea"
+    test: |
+      system "#{bin}/jwtea", "--help"
+
+release:
+  github:
+    owner: augustinaviciusR
+    name: jwtea

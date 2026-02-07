@@ -18,10 +18,17 @@ A lightweight OAuth2/OIDC Authorization Server with an interactive Terminal UI (
 
 ## Installation
 
+### Homebrew (macOS/Linux)
+
+```bash
+brew tap augustinaviciusR/tap
+brew install jwtea
+```
+
 ### From Source
 
 ```bash
-git clone https://github.com/yourusername/jwtea.git
+git clone https://github.com/augustinaviciusR/jwtea.git
 cd jwtea
 make build
 ```
@@ -29,7 +36,7 @@ make build
 ### Go Install
 
 ```bash
-go install github.com/yourusername/jwtea@latest
+go install github.com/augustinaviciusR/jwtea@latest
 ```
 
 ## Quick Start
