@@ -10,7 +10,6 @@ import (
 	"jwtea/internal/tui"
 	"jwtea/internal/tui/components"
 
-	"github.com/atotto/clipboard"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 )
@@ -129,7 +128,7 @@ func NewGenerateTab(ctx *tui.Context) *GenerateTab {
 		tokenView:     tokenView,
 		focusIndex:    0,
 		buttonIndex:   0,
-		buttonLabels:  []string{"[C] Generate + Copy"},
+		buttonLabels:  []string{"[C] Generate"},
 		styleHeader:   lipgloss.NewStyle().Foreground(lipgloss.Color("205")).Bold(true),
 		styleButton:   lipgloss.NewStyle().Foreground(lipgloss.Color("240")).Border(lipgloss.RoundedBorder()).Padding(0, 2),
 		styleButtonOn: lipgloss.NewStyle().Foreground(lipgloss.Color("205")).Bold(true).Border(lipgloss.RoundedBorder()).Padding(0, 2),
@@ -318,7 +317,6 @@ func (t *GenerateTab) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 		case "c":
 			if t.focusIndex == len(t.focusables)+1 && t.generatedToken != "" {
-				_ = clipboard.WriteAll(t.generatedToken)
 				return t, nil
 			}
 			if t.focusIndex != 3 {
@@ -656,11 +654,6 @@ func (t *GenerateTab) handleButtonPress() tea.Cmd {
 
 	t.generatedToken = result.AccessToken
 	t.tokenView.SetToken(result.AccessToken)
-
-	if t.buttonIndex == 0 {
-		_ = clipboard.WriteAll(result.AccessToken)
-	}
-
 	t.scrollOffset = 15
 
 	return nil
